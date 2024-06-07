@@ -3,15 +3,6 @@ from langchain import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain.memory import ConversationBufferMemory
 
-llm = ChatOpenAI(
-    model_name="gpt-4-turbo",
-    temperature=0,
-    openai_api_key=openai_api_key,
-    verbose=False,
-    streaming=True,
-    callbacks=[StreamingStdOutCallbackHandler()],
-)
-
 documentation_template = """As a documentation bot, your goal is to provide accurate and helpful information about
      Sagemaker. You should answer user inquiries based on the context provided. If he greets, then greet him. Don't include prefix 'Answer'.
      
@@ -37,8 +28,3 @@ qa = RetrievalQA.from_chain_type(
     },
     verbose=True,
 )
-
-while True:
-    query = input(" > ")
-    result = qa.run(query)
-    print("\n")
